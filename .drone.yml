@@ -17,6 +17,7 @@ steps:
   image: rancher/ui:build
   commands:
   - BUILD_LATEST=true ./scripts/ci
+  - tar -jcvf ui.tar.bz2 dist/static/latest2/
   volumes:
   - name: cache
     path: /var/cache/npm
@@ -28,7 +29,7 @@ steps:
   settings:
     api_key:
       from_secret: git_release
-    files: dist/static/latest2/*
+    files: ui.tar.bz2
     when:
       event: tag
 
