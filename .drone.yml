@@ -5,26 +5,21 @@ steps:
 - name: test
   image: rancher/ui:build
   commands:
-     - ./scripts/ci
+  - ./scripts/ci
   volumes:
-     - name: cache
-       path: /var/cache/npm
+  - name: cache
+    path: /var/cache/npm
   when:
     event:
-      - pull_request
-
-volumes:
-  - name: cache
-    host:
-      path: /tmp/cache-npm
+    - pull_request
 
 - name: build
   image: rancher/ui:build
   commands:
-     - BUILD_LATEST=true ./scripts/ci
+  - BUILD_LATEST=true ./scripts/ci
   volumes:
-    - name: cache
-      path: /var/cache/npm
+  - name: cache
+    path: /var/cache/npm
   when:
     event: tag
 
@@ -36,3 +31,7 @@ volumes:
     files: dist/static/latest2/*
     when:
       event: tag
+
+volumes:
+- name: cache
+  temp: {}
