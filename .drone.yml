@@ -16,21 +16,14 @@ pipeline:
     volumes:
       - /tmp/cache-npm:/var/cache/npm
     when:
-      branch: "master"
       event:
-        exclude: [pull_request]
+        event: tag
 
   upload:
-    image: plugins/gcs
-    source: dist/static/latest2
-    target: releases.rancher.com/ui/latest2
-    acl:
-     - allUsers:READER
-    cache_control: no-cache,must-revalidate
-    secrets:
-     - source: google_auth_key
-       target: GOOGLE_CREDENTIALS
-    when:
-      branch: master
-      event:
-        exclude: [pull_request]
+    image: plugins/github-release
+      settings:
+        api_key:
+          from_secret: git_release
+        files: dist/static/latest2/*
+        when:
+          event: tag
