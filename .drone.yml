@@ -7,7 +7,8 @@ pipeline:
     volumes:
       - /tmp/cache-npm:/var/cache/npm
     when:
-      event: [pull_request]
+      event:
+        - pull_request
 
   build:
     image: rancher/ui:build
@@ -16,8 +17,7 @@ pipeline:
     volumes:
       - /tmp/cache-npm:/var/cache/npm
     when:
-      event:
-        event: tag
+      event: tag
 
   upload:
     image: plugins/github-release
