@@ -11,14 +11,14 @@ const samlProviders = ['ping', 'adfs', 'keycloak'];
 const allowedForwards = ['localhost'];
 
 export default Route.extend(VerifyAuth, {
-  github: service(),
+  github:   service(),
   zoomlion: service(),
 
   model(params/* , transition */) {
-    const github  = get(this, 'github');
+    const github    = get(this, 'github');
     const zoomlion  = get(this, 'zoomlion');
-    const code    = get(params, 'code');
-    const forward = get(params, 'forward');
+    const code      = get(params, 'code');
+    const forward   = get(params, 'forward');
 
     // Allow another redirect if the hostname is in the whitelist above.
     // This allows things like sharing github auth between rancher at localhost:8000
