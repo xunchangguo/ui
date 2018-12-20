@@ -12,9 +12,11 @@ const allowedForwards = ['localhost'];
 
 export default Route.extend(VerifyAuth, {
   github: service(),
+  zoomlion: service(),
 
   model(params/* , transition */) {
     const github  = get(this, 'github');
+    const zoomlion  = get(this, 'zoomlion');
     const code    = get(params, 'code');
     const forward = get(params, 'forward');
 
@@ -42,16 +44,24 @@ export default Route.extend(VerifyAuth, {
 
     if ( window.opener && !get(params, 'login') ) {
       let openersGithub = window.opener.ls('github');
+      let openersZoomlion = window.opener.ls('zoomlion');
       let openerStore   = window.opener.ls('globalStore');
       let qp            = get(params, 'config') || get(params, 'authProvider');
       let type          = `${ qp }Config`;
       let config        = openerStore.getById(type, qp);
       let gh            = get(this, 'github');
+      let zl            = get(this, 'zoomlion');
       let stateMsg      = 'Authorization state did not match, please try again.';
 
       if ( get(params, 'config') === 'github' ) {
         return gh.testConfig(config).then((resp) => {
           gh.authorize(resp, openersGithub.get('state'));
+        }).catch((err) => {
+          this.send('gotError', err);
+        });
+      } else if ( get(params, 'config') === 'zoomlion' ) {
+        return zl.testConfig(config).then((resp) => {
+          zl.authorize(resp, openersZoomlion.get('state'));
         }).catch((err) => {
           this.send('gotError', err);
         });
@@ -84,6 +94,18 @@ export default Route.extend(VerifyAuth, {
         let ghProvider = get(this, 'access.providers').findBy('id', 'github');
 
         return ghProvider.doAction('login', {
+          code,
+          responseType: 'cookie',
+          description:  C.SESSION.DESCRIPTION,
+          ttl:          C.SESSION.TTL,
+        }).then(() => {
+          return get(this, 'access').detect()
+            .then(() => this.transitionTo('authenticated'));
+        });
+      } else if ( zoomlion.stateMatches(get(params, 'state')) ) {
+        let zlProvider = get(this, 'access.providers').findBy('id', 'zoomlion');
+
+        return zlProvider.doAction('login', {
           code,
           responseType: 'cookie',
           description:  C.SESSION.DESCRIPTION,
