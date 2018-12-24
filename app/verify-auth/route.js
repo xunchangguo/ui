@@ -93,8 +93,8 @@ export default Route.extend(VerifyAuth, {
       }
     }
 
-    if ( code && get(params, 'login') ) {
-      if ( github.stateMatches(get(params, 'state')) ) {
+    if ( code ) {
+      if ( github.stateMatches(get(params, 'state')) && get(params, 'login') ) {
         let ghProvider = get(this, 'access.providers').findBy('id', 'github');
 
         return ghProvider.doAction('login', {
