@@ -26,6 +26,7 @@ export default Route.extend(VerifyAuth, {
     if ( forward ) {
       const parsed = parseUrl(forward);
 
+      debugger;
       if ( allowedForwards.includes(parsed.hostname.toLowerCase()) ) {
         if ( get(params, 'login') ) {
           window.location.href = addQueryParams(forward, {
