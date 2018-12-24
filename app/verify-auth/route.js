@@ -76,6 +76,8 @@ export default Route.extend(VerifyAuth, {
       if ( get(params, 'code') ) {
         if ( openersGithub.stateMatches(get(params, 'state')) ) {
           reply(params.error_description, params.code);
+        } else if ( openersZoomlion.stateMatches(get(params, 'state')) ) {
+          reply(params.error_description, params.code);
         } else {
           reply(stateMsg);
         }
