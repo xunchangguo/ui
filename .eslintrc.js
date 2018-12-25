@@ -69,7 +69,7 @@ module.exports = {
     "ember/no-on-calls-in-components": "off",
     "ember/no-side-effects": "off",
     "ember/no-old-shims": "error",
-    "ember/order-in-components": ["error", { order: propertyOrder }],
+    "ember/order-in-components": ["warn", { order: propertyOrder }],
     "ember/order-in-controllers": ["error", { order: propertyOrder }],
     "ember/order-in-models": ["error", { order: propertyOrder }],
     "ember/order-in-routes": ["error", { order: propertyOrder }],
@@ -102,11 +102,11 @@ module.exports = {
     "padded-blocks": [ "error", "never" ],
     "block-spacing": [ "error", "always" ],
     "brace-style": [ "error", "1tbs" ],
-    "comma-spacing": "error",
+    "comma-spacing": "warn",
     "func-call-spacing": [ "error", "never" ],
     "implicit-arrow-linebreak": "error",
-    "indent": ["error", 2],
-    "key-spacing": [ "error", {
+    "indent": ["warn", 2],
+    "key-spacing": [ "warn", {
       "align": {
         "beforeColon": false,
         "afterColon": true,
@@ -122,7 +122,7 @@ module.exports = {
     "lines-between-class-members": "error",
     "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
     "no-whitespace-before-property": "error",
-    "object-curly-newline": [ "error", {
+    "object-curly-newline": [ "warn", {
       "ObjectExpression": { "multiline": true, "minProperties": 3 },
       "ObjectPattern": { "multiline": true, "minProperties": 3 },
       "ImportDeclaration": { "multiline": true, "minProperties": 5 },
@@ -131,7 +131,7 @@ module.exports = {
     "object-curly-spacing": [ "error", "always" ],
     "object-property-newline": "error",
     "padding-line-between-statements": [
-      "error",
+      "warn",
       {
         "blankLine": "always",
         "prev": "*",
@@ -157,24 +157,24 @@ module.exports = {
         "allowTemplateLiterals": true
       },
     ],
-    "space-before-function-paren": [ "error", "never" ],
+    "space-before-function-paren": [ "warn", "never" ],
     "space-infix-ops": "error",
     "space-unary-ops": [
       "error",
       { "words": true, "nonwords": false, }
     ],
-    "spaced-comment": "error",
+    "spaced-comment": "warn",
     "switch-colon-spacing": "error",
 
     // ECMAScript 6
     "arrow-parens": "error",
     "arrow-spacing": [ "error", { "before": true, "after": true } ],
     "no-trailing-spaces": "error",
-    "object-shorthand": "error",
-    "prefer-arrow-callback": "error",
+    "object-shorthand": "warn",
+    "prefer-arrow-callback": "warn",
     "prefer-template": "error",
     "rest-spread-spacing": "error",
-    "template-curly-spacing": [ "error", "always" ],
+    "template-curly-spacing": [ "warn", "always" ],
     "yield-star-spacing": [ "error", "both" ],
   }
 };
