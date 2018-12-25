@@ -169,7 +169,7 @@ module.exports = {
     // ECMAScript 6
     "arrow-parens": "error",
     "arrow-spacing": [ "error", { "before": true, "after": true } ],
-    "no-trailing-spaces": "error",
+    "no-trailing-spaces": "warn",
     "object-shorthand": "warn",
     "prefer-arrow-callback": "warn",
     "prefer-template": "error",
