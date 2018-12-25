@@ -22,7 +22,7 @@ echo "Bootstrapping.."
 ./scripts/bootstrap
 
 echo "Linting.."
-./node_modules/.bin/eslint --max-warnings 0 .
+./node_modules/.bin/eslint --quiet .
 
 if [[ "${BUILD_LATEST}" == "true" ]]; then
   echo "Building..."
