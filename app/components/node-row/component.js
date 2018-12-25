@@ -43,7 +43,7 @@ export const headersAll = [
   },
   {
     name:           'cpu',
-    sort:           ['cpuUsageCount', 'displayName'],
+    sort:           ['cpuUsage', 'displayName'],
     searchField:    null,
     width:          100,
     translationKey: 'nodesPage.table.cpu',
@@ -51,7 +51,7 @@ export const headersAll = [
   },
   {
     name:           'memory',
-    sort:           ['memoryUsageCount', 'displayName'],
+    sort:           ['memoryUsage', 'displayName'],
     searchField:    null,
     width:          150,
     translationKey: 'nodesPage.table.memory',
@@ -59,7 +59,7 @@ export const headersAll = [
   },
   {
     name:           'pod',
-    sort:           ['podUsageCount', 'displayName'],
+    sort:           ['podUsage', 'displayName'],
     searchField:    null,
     width:          100,
     translationKey: 'nodesPage.table.pod',

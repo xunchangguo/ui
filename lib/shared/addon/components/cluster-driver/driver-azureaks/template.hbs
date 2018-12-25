@@ -119,19 +119,21 @@
            title=(t 'clusterNew.customize.title')
            detail=(t 'clusterNew.customize.detail')
            expandAll=al.expandAll
-           expandOnInit=true
+           expandOnInit=isEditing
            expand=(action expandFn)
       }}
         <div class="row">
           <div class="col span-6">
             <label class="acc-label" for="azureaks-kube-version">{{t 'clusterNew.azureaks.kubernetesVersion.label'}}</label>
-
-            {{form-versions
-                cluster=cluster
-                editing=(eq mode 'edit')
-                initialVersion=config.kubernetesVersion
+            {{new-select
+                id="azureaks-kube-version"
+                classNames="form-control"
+                content=versions
+                optionValuePath="value"
+                optionLabelPath="value"
                 value=config.kubernetesVersion
-                versions=versions
+                prompt="clusterNew.azureaks.kubernetesVersion.prompt"
+                localizedPrompt=true
             }}
           </div>
           <div class="col span-6">

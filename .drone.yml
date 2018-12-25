@@ -1,38 +1,36 @@
-kind: pipeline
-name: default
-
-steps:
-- name: test
-  image: rancher/ui:build
-  commands:
-  - ./scripts/ci
-  volumes:
-  - name: cache
-    path: /var/cache/npm
-  when:
-    event:
-    - pull_request
-
-- name: build
-  image: rancher/ui:build
-  commands:
-  - BUILD_LATEST=true ./scripts/ci
-  - tar -jcvf ui.tar.bz2 dist/static/latest2/
-  volumes:
-  - name: cache
-    path: /var/cache/npm
-  when:
-    event: tag
-
-- name: upload
-  image: plugins/github-release
-  settings:
-    api_key:
-      from_secret: git_release
-    files: ui.tar.bz2
+---
+pipeline:
+  test:
+    image: rancher/ui:build
+    commands:
+      - ./scripts/ci
+    volumes:
+      - /tmp/cache-npm:/var/cache/npm
     when:
-      event: tag
+      event: [pull_request]
 
-volumes:
-- name: cache
-  temp: {}
+  build:
+    image: rancher/ui:build
+    commands:
+      - BUILD_LATEST=true ./scripts/ci
+    volumes:
+      - /tmp/cache-npm:/var/cache/npm
+    when:
+      branch: "master"
+      event:
+        exclude: [pull_request]
+
+  upload:
+    image: plugins/gcs
+    source: dist/static/latest2
+    target: releases.rancher.com/ui/latest2
+    acl:
+     - allUsers:READER
+    cache_control: no-cache,must-revalidate
+    secrets:
+     - source: google_auth_key
+       target: GOOGLE_CREDENTIALS
+    when:
+      branch: master
+      event:
+        exclude: [pull_request]

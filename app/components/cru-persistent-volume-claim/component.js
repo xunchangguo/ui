@@ -6,7 +6,6 @@ import Component from '@ember/component';
 import ViewNewEdit from 'shared/mixins/view-new-edit';
 import ChildHook from 'shared/mixins/child-hook';
 import layout from './template';
-import Errors from 'ui/utils/errors';
 
 export default Component.extend(ViewNewEdit, ChildHook, {
   intl:  service(),
@@ -134,12 +133,7 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     const sup = this._super;
 
     if ( get(this, 'selectNamespace') ) {
-      const errors = [];
-
-      errors.pushObjects(get(this, 'namespaceErrors') || []);
-      set(this, 'errors', errors);
-
-      if ( get(errors, 'length') !== 0 ) {
+      if ( get(this, 'namespaceErrors.length') ) {
         return false;
       }
 
@@ -147,8 +141,6 @@ export default Component.extend(ViewNewEdit, ChildHook, {
         set(pr, 'namespaceId', get(this, 'namespace.id'));
 
         return sup.apply(self, ...arguments);
-      }).catch((err) => {
-        set(this, 'errors', [Errors.stringify(err)]);
       });
     } else {
       if ( !get(pr, 'namespaceId') ) {

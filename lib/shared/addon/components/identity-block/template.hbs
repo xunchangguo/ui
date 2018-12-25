@@ -1,57 +1,55 @@
 {{yield}}
-<div class="identity-block">
-  {{#if avatar}}
-    <div class="gh-avatar">
-      {{#if principal.avatarSrc}}
-        {{#if (and principal.profileURL link)}}
-          <a href="{{principal.profileURL}}" target="_blank">
-            <img src="{{principal.avatarSrc}}" width="{{size}}" height="{{size}}">
-          </a>
-        {{else}}
+{{#if avatar}}
+  <div class="gh-avatar">
+    {{#if principal.avatarSrc}}
+      {{#if (and principal.profileURL link)}}
+        <a href="{{principal.profileURL}}" target="_blank">
           <img src="{{principal.avatarSrc}}" width="{{size}}" height="{{size}}">
-        {{/if}}
+        </a>
       {{else}}
-        <div class="gh-placeholder">
-          {{#unless loading}}
-            <img src="{{avatarSrc}}" width="{{size}}" height="{{size}}">
-          {{/unless}}
-        </div>
+        <img src="{{principal.avatarSrc}}" width="{{size}}" height="{{size}}">
       {{/if}}
-    </div>
-  {{/if}}
+    {{else}}
+      <div class="gh-placeholder">
+        {{#unless loading}}
+          <img src="{{avatarSrc}}" width="{{size}}" height="{{size}}">
+        {{/unless}}
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
 
-  <div class="gh-block-content">
-    <div class="gh-block-name">
-      {{#if loading}}
-        {{t 'identityBlock.loading'}}
+<div class="gh-block-content">
+  <div class="gh-block-name">
+    {{#if loading}}
+      {{t 'identityBlock.loading'}}
+    {{else}}
+      {{#if (and principal.profileURL link)}}
+        <a href="{{principal.profileURL}}" target="_blank">{{login}}</a>
       {{else}}
-        {{#if (and principal.profileURL link)}}
-          <a href="{{principal.profileURL}}" target="_blank">{{login}}</a>
+        {{#if principal.displayName}}
+          <div>
+            {{principal.displayName}} {{#if principal.loginName }}<small>(&nbsp;{{principal.loginName}}&nbsp;)</small>{{/if}}
+          </div>
+        {{else if principal.loginName}}
+          {{principal.loginName}}
+        {{else if unknownUser}}
+          <span class="text-error">{{t 'generic.unknownUser'}}</span>
         {{else}}
-          {{#if principal.displayName}}
-            <div>
-              {{principal.displayName}}{{#if principal.loginName }}<small>(&nbsp;{{principal.loginName}}&nbsp;)</small>{{/if}}
-            </div>
-          {{else if principal.loginName}}
-            {{principal.loginName}}
-          {{else if unknownUser}}
-            <span class="text-error">{{t 'generic.unknownUser'}}</span>
-          {{else}}
-            &nbsp;
-          {{/if}}
+          &nbsp;
         {{/if}}
       {{/if}}
-    </div>
-    <div class="gh-block-detail text-small clip">
-      {{#if principal.displayType}}
-        {{principal.displayType}}
-      {{else if unknownUser}}
-        <span class="clip">
-          {{principalId}}
-        </span>
-      {{else}}
-        &nbsp;
-      {{/if}}
-    </div>
+    {{/if}}
+  </div>
+  <div class="gh-block-detail text-small clip">
+    {{#if principal.displayType}}
+      {{principal.displayType}}
+    {{else if unknownUser}}
+      <span class="clip">
+        {{principalId}}
+      </span>
+    {{else}}
+      &nbsp;
+    {{/if}}
   </div>
 </div>

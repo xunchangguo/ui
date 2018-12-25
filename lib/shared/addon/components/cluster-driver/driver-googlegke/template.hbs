@@ -9,7 +9,6 @@
        nameRequired=true
        placeholder="clusterNew.googlegke.credential.placeholder"
        fileChosen=(action "clickNext")
-       concealValue=true
        as |section|
   }}
     {{#if (eq section 'description')}}
@@ -37,19 +36,21 @@
          title=(t 'clusterNew.customize.title')
          detail=(t 'clusterNew.customize.detail')
          everExpanded=true
-         expandOnInit=true
+         expandOnInit=(eq mode "edit" true false)
          expandAll=al.expandAll
          expand=(action expandFn)
     }}
       <div class="row">
         <div class="col span-6">
           <label class="acc-label">{{t 'clusterNew.googlegke.masterVersion.label'}}</label>
-          {{form-versions
-              cluster=cluster
-              editing=(eq mode 'edit')
-              initialVersion=config.masterVersion
+          {{new-select
+              classNames="form-control"
+              content=versionChoices
+              optionValuePath="value"
+              optionLabelPath="value"
               value=config.masterVersion
-              versions=versionChoices
+              prompt="clusterNew.googlegke.masterVersion.prompt"
+              localizedPrompt=true
           }}
         </div>
         <div class="col span-6">

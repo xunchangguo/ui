@@ -11,14 +11,12 @@ const samlProviders = ['ping', 'adfs', 'keycloak'];
 const allowedForwards = ['localhost'];
 
 export default Route.extend(VerifyAuth, {
-  github:   service(),
-  zoomlion: service(),
+  github: service(),
 
   model(params/* , transition */) {
-    const github    = get(this, 'github');
-    const zoomlion  = get(this, 'zoomlion');
-    const code      = get(params, 'code');
-    const forward   = get(params, 'forward');
+    const github  = get(this, 'github');
+    const code    = get(params, 'code');
+    const forward = get(params, 'forward');
 
     // Allow another redirect if the hostname is in the whitelist above.
     // This allows things like sharing github auth between rancher at localhost:8000
@@ -26,8 +24,6 @@ export default Route.extend(VerifyAuth, {
     if ( forward ) {
       const parsed = parseUrl(forward);
 
-      console.log(forward);
-      console.log(params);
       if ( allowedForwards.includes(parsed.hostname.toLowerCase()) ) {
         if ( get(params, 'login') ) {
           window.location.href = addQueryParams(forward, {
@@ -46,24 +42,16 @@ export default Route.extend(VerifyAuth, {
 
     if ( window.opener && !get(params, 'login') ) {
       let openersGithub = window.opener.ls('github');
-      let openersZoomlion = window.opener.ls('zoomlion');
       let openerStore   = window.opener.ls('globalStore');
       let qp            = get(params, 'config') || get(params, 'authProvider');
       let type          = `${ qp }Config`;
       let config        = openerStore.getById(type, qp);
       let gh            = get(this, 'github');
-      let zl            = get(this, 'zoomlion');
       let stateMsg      = 'Authorization state did not match, please try again.';
 
       if ( get(params, 'config') === 'github' ) {
         return gh.testConfig(config).then((resp) => {
           gh.authorize(resp, openersGithub.get('state'));
-        }).catch((err) => {
-          this.send('gotError', err);
-        });
-      } else if ( get(params, 'config') === 'zoomlion' ) {
-        return zl.testConfig(config).then((resp) => {
-          zl.authorize(resp, openersZoomlion.get('state'));
         }).catch((err) => {
           this.send('gotError', err);
         });
@@ -78,8 +66,6 @@ export default Route.extend(VerifyAuth, {
       if ( get(params, 'code') ) {
         if ( openersGithub.stateMatches(get(params, 'state')) ) {
           reply(params.error_description, params.code);
-        } else if ( openersZoomlion.stateMatches(get(params, 'state')) ) {
-          reply(params.error_description, params.code);
         } else {
           reply(stateMsg);
         }
@@ -93,23 +79,11 @@ export default Route.extend(VerifyAuth, {
       }
     }
 
-    if ( code ) {
-      if ( github.stateMatches(get(params, 'state')) && get(params, 'login') ) {
+    if ( code && get(params, 'login') ) {
+      if ( github.stateMatches(get(params, 'state')) ) {
         let ghProvider = get(this, 'access.providers').findBy('id', 'github');
 
         return ghProvider.doAction('login', {
-          code,
-          responseType: 'cookie',
-          description:  C.SESSION.DESCRIPTION,
-          ttl:          C.SESSION.TTL,
-        }).then(() => {
-          return get(this, 'access').detect()
-            .then(() => this.transitionTo('authenticated'));
-        });
-      } else if ( zoomlion.stateMatches(get(params, 'state')) ) {
-        let zlProvider = get(this, 'access.providers').findBy('id', 'zoomlion');
-
-        return zlProvider.doAction('login', {
           code,
           responseType: 'cookie',
           description:  C.SESSION.DESCRIPTION,

@@ -259,10 +259,6 @@ podSecurityPoliciesPage:
 
 rolesPage:
   title: Role
-  headers:
-    global: Global
-    cluster: Clusters
-    project: Projects
   index:
     localLink: Add Role
     table:
@@ -278,8 +274,6 @@ rolesPage:
       cluster: Cluster Creator Default
       project: Project Creator Default
       showDefaults: Show Only Defaults
-    errors:
-      inherited: "Role {displayName} is inherited by: {roleNames}"
   resources:
     title: Grant Resources
     detail: Grant access to specific operations on Kubernetes resources
@@ -1468,6 +1462,10 @@ persistentVolumePage:
 
 userPreferencesPage:
   header: Preferences
+  menu:
+    header: Menu Positon
+    left: Left
+    top: Top
   theme:
     header: Theme
     light: Light
@@ -4130,7 +4128,6 @@ formPorts:
     HostPort: HostPort (Nodes running a pod)
     ClusterIP: Cluster IP (Internal only)
     LoadBalancer: Layer-4 Load Balancer
-    LoadBalancerDisbaled: 'Layer-4 Load Balancer (disabled)'
   sourcePort:
     label: On listening port
     placeholder: "e.g. 80"
@@ -4508,10 +4505,6 @@ formValueArray:
   valuePlaceholder: Value
   noData: No Data
   protip: "ProTip: Paste one or more lines of values into any field for easy bulk entry."
-
-formVersions:
-  experimental: "(experimental)"
-  unsupported: "(unsupported)"
 
 formVolumeRow:
   prompt: Select a Persistent Volume Claim...
@@ -5054,11 +5047,6 @@ modalDrainNode:
     placeholder: e.g. 60
     custom: "Give up after:"
 
-modalRevertSettings:
-  title: "Revert {setting} to default value?"
-  current: Current Value
-  default: Default Value
-
 modalRollbackService:
   title: 'Rollback "{instanceName}"'
   titleWithSidekicks: 'Rollback "{instanceName}" & {count, plural, =1 {# sidecar} other {# sidecar}}'
@@ -5319,7 +5307,6 @@ nodeDriver:
         custom: "Custom: Choose from your existing VPC and Subnets"
     subnet:
       title: Subnet
-      help: 2 subnets required
       next: "Next: Select Security Group"
       loading: "Loading Security Groups from Amazon..."
     associateWorkerNodePublicIp:
@@ -5464,8 +5451,6 @@ nodeDriver:
       addActionLabel: Add Droplet Tag
       valueLabel: Tags
       placeholder: e.g. dev
-    errors:
-      hostnamePrefix: '"Name Prefix" can not contain "_"'
   exoscale:
     accountSection: Account Access
     apiKey:
@@ -5878,6 +5863,7 @@ pageFooter:
   issues: File an Issue
   forums: Forums
   slack: Slack
+  support: Support
   download:
     link: Download CLI
     mac: macOS
@@ -6343,6 +6329,7 @@ nav:
     link: "Node Templates"
   api:
     link: "API & Keys"
+  userMenu: "User Menu"
   settings:
     tab: Settings
     advanced: Advanced

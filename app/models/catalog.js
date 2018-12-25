@@ -6,7 +6,6 @@ import C from 'ui/utils/constants';
 
 export default Resource.extend({
   modalService: service('modal'),
-  level:        'global',
 
   displayKind: computed('kind', function() {
     return ucFirst(get(this, 'kind'));
@@ -20,11 +19,9 @@ export default Resource.extend({
     return !builtIn.includes(name);
   }),
 
-  availableActions: computed('actionLinks.{refresh}', function() {
-    let a = get(this, 'actionLinks') || {};
-
+  availableActions: computed(() => {
     return [{
-      enabled: !!a.refresh,
+      enabled: true,
       label:   'catalogPage.index.refreshBtn',
       icon:    'icon icon-refresh',
       action:  'refresh'
@@ -35,7 +32,7 @@ export default Resource.extend({
     edit() {
       get(this, 'modalService').toggleModal('modal-edit-catalog', {
         model: this,
-        scope: get(this, 'level')
+        scope: 'global'
       });
     },
 
@@ -44,7 +41,7 @@ export default Resource.extend({
 
       get(this, 'modalService').toggleModal('modal-edit-catalog', {
         model: clone,
-        scope: get(this, 'level')
+        scope: 'global'
       });
     },
 

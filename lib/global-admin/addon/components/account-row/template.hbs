@@ -7,9 +7,7 @@
 </td>
 
 <td data-title="{{dt.name}}">
-  {{#if model.principalIds.firstObject}}
-    {{identity-block principalId=model.principalIds.firstObject}}
-  {{else if model.name}}
+  {{#if model.name}}
     {{model.name}}
   {{else}}
     <span class="text-muted">{{t 'generic.none'}}</span>

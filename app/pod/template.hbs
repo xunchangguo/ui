@@ -26,18 +26,11 @@
       {{/copy-inline}}
     {{else}}
       {{t 'generic.none'}}
-    {{/if}}
+    {{/if}}  
   </div>
   <div class="vertical-middle">
     <label class="acc-label vertical-middle p-0">{{t 'podPage.image'}}:</label>
-      {{#tooltip-element
-          type="tooltip-basic"
-          tooltipTemplate='tooltip-multi-lines'
-          model=model.displayImages
-          inlineBlock=true
-      }}
-        {{model.displayImage}}
-      {{/tooltip-element}}
+    {{model.displayImage}}
   </div>
   <div class="vertical-middle">
     <label class="acc-label vertical-middle p-0">{{t 'dnsPage.type.workload'}}:</label>
@@ -77,7 +70,7 @@
   </div>
   <div class="vertical-middle">
     <label class="acc-label vertical-middle p-0">{{t 'generic.created'}}:</label>
-    {{date-calendar model.created}}
+    {{date-calendar model.created}} 
     <div class="text-muted text-small">{{t 'generic.restarts'}} {{model.restarts}}</div>
   </div>
 </div>
@@ -98,7 +91,7 @@
       {{pod-metrics resourceId=model.id}}
     {{/metrics-summary}}
   {{/if}}
-
+  
   {{resource-event-list
     resourceType=(t 'generic.pod')
     expandAll=al.expandAll
@@ -114,7 +107,7 @@
     expandAll=al.expandAll
     expandFn=expandFn
   }}
-
+  
   {{#if model.workload}}
     {{container/form-scheduling
       initialHostId=model.workload.nodeId

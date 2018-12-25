@@ -274,8 +274,6 @@ rolesPage:
       cluster: 新集群默认角色
       project: 新项目默认角色
       showDefaults: 仅显示默认角色
-  errors:
-    inherited: "角色 {displayName} 被 {roleNames} 继承"
   resources:
     title: 授权资源
     detail: 对Kubernetes资源的具体操作进行授权。
@@ -583,7 +581,7 @@ authPage:
           labelText: 确认密码
     accessControl:
       header: '2. 启用访问控制'
-      helpText: '点击以开启访问控制并登录'
+      helpText: '点击以开启访问控制并登陆'
       buttonText:
         pre: 启用本地认证
         post: '启用中...'
@@ -1460,6 +1458,10 @@ persistentVolumePage:
 
 userPreferencesPage:
   header: 设置
+  menu:
+    header: 菜单位置
+    left: 左侧
+    top: 顶部
   theme:
     header: 主题
     light: 明亮
@@ -1894,7 +1896,7 @@ clusterRow:
   noClusterData: 没有任何集群。
   addHost: 添加主机...
   importCluster: 使用已有的Kubernetes
-  loginDefault: 登录
+  loginDefault: 登陆
 
 clusterNew:
   advanced:
@@ -5408,8 +5410,6 @@ nodeDriver:
       addActionLabel: 添加Droplet标签
       valueLabel: 标签
       placeholder: '例如: dev'
-    errors:
-      hostnamePrefix: 名称前缀不能包含 "_"
   exoscale:
     accountSection: 账户访问
     apiKey:
@@ -5823,6 +5823,8 @@ pageFooter:
   forums: 论坛
   cnforums: 中文社区
   slack: Slack
+  support: 支持与服务
+  chinaForums: 中文社区
   download:
     link: 下载Rancher CLI
     mac: macOS
@@ -6282,6 +6284,7 @@ nav:
   user:
     label: "用户菜单:{username}"
     logout: 注销
+  userMenu: "用户菜单"
   userPreferences:
     link: "设定"
   nodeTemplates:
