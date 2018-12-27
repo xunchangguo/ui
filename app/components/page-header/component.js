@@ -58,7 +58,7 @@ export default Component.extend({
   project:          alias('scope.currentProject'),
   accessEnabled:    alias('access.enabled'),
 
-
+  classNames:       null,
   responsiveNav:    true,
   userMenuExpanded: false,
   userMenus:        USER_MENU,
