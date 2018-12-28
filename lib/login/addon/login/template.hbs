@@ -13,6 +13,10 @@
         {{login-github action="started"}}
       {{/if}}
 
+      {{#if isZoomlion}}
+        {{login-zoomlion action="started"}}
+      {{/if}}
+
       {{#if isShibboleth}}
         <p>{{t 'loginPage.shibbolethMessage' appName=settings.appName}}</p>
         <br/>

@@ -76,6 +76,7 @@ const App = Application.extend({
           'endpoint',
           'azureAd',
           'github',
+          'zoomlion',
           'globalStore',
           'intl',
           'modal',
